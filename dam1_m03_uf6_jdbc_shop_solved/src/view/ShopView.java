@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import model.Amount;
 import model.Product;
+import utils.Constants;
 import dao.DaoImplFile;
 import main.Shop;
 
@@ -59,15 +60,14 @@ public class ShopView extends JFrame {
         addStockButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Aquí irá la nueva funcionalidad que se desee implementar para el botón 3
-                JOptionPane.showMessageDialog(null, "Nueva funcionalidad en desarrollo.");
+            	addStock();
             }
         });
 
         removeProductButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                removeProduct();  // Llamar al método para eliminar un producto
+                removeProduct(); 
             }
         });
 
@@ -83,7 +83,7 @@ public class ShopView extends JFrame {
         add(countCashButton);
         add(addProductButton);
         add(addStockButton);
-        add(removeProductButton);  // Mover a la posición 9
+        add(removeProductButton);  
         add(exitButton);
     }
 
@@ -106,12 +106,22 @@ public class ShopView extends JFrame {
 
     // Método para añadir un producto (placeholder)
     public void addProduct() {
-        JOptionPane.showMessageDialog(this, "Función para añadir producto en desarrollo.");
+        // Redirigir a ProductView para añadir un nuevo producto
+        ProductView productView = new ProductView(shop, Constants.OPTION_ADD_PRODUCT);
+        productView.setVisible(true); // Mostrar el diálogo de ProductView
     }
 
     // Método para eliminar un producto (placeholder)
     public void removeProduct() {
-        JOptionPane.showMessageDialog(this, "Función para eliminar producto en desarrollo.");
+        // Redirigir a ProductView para eliminar un producto
+        ProductView productView = new ProductView(shop, Constants.OPTION_REMOVE_PRODUCT);
+        productView.setVisible(true); // Mostrar el diálogo de ProductView
+    }
+    
+    public void addStock() {
+        // Redirigir a ProductView para añadir stock
+        ProductView productView = new ProductView(shop, Constants.OPTION_ADD_STOCK);
+        productView.setVisible(true); // Mostrar el diálogo de ProductView
     }
 
     // Método principal para mostrar la ventana

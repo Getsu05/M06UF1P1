@@ -1,0 +1,4 @@
+1;Product=Manzana;Wholesaler Price=10,00€;Stock=10;
+2;Product=Fresa;Wholesaler Price=5,00€;Stock=20;
+1;Product=Manzana;Wholesaler Price=10,00€;Stock=10;
+2;Product=Fresa;Wholesaler Price=5,00€;Stock=20;

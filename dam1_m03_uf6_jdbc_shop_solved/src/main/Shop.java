@@ -298,7 +298,7 @@ public class Shop {
 
 	
     public boolean writeInventory() {
-        return dao.writeInventory(this.inventory);
+        return dao.writeInventoryXML(this.inventory);
     }
     
    

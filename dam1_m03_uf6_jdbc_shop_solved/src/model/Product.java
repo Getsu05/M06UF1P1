@@ -1,7 +1,7 @@
 package model;
 
 public class Product {
-	private int id;
+    private int id;
     private String name;
     private Amount publicPrice;
     private Amount wholesalerPrice;
@@ -9,94 +9,113 @@ public class Product {
     private int stock;
     private static int totalProducts;
     
-    public final static double EXPIRATION_RATE=0.60;
-    
-	public Product(String name, Amount wholesalerPrice, boolean available, int stock) {
-		super();
-		this.id = totalProducts+1;
-		this.name = name;
-		this.wholesalerPrice = wholesalerPrice;
-		this.publicPrice = new Amount(wholesalerPrice.getValue() * 2);
-		this.available = available;
-		this.stock = stock;
-		totalProducts++;
-	}
+    // Atributos adicionales para badge y color
+    private String badge;
+    private String color;
 
-	public int getId() {
-		return id;
-	}
+    public final static double EXPIRATION_RATE = 0.60;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    // Constructor sin parámetros
+    public Product() {
+        this.id = ++totalProducts;  // Incrementamos el id único para cada producto
+        this.available = true;      // Valor por defecto
+    }
 
-	public String getName() {
-		return name;
-	}
+    // Constructor con parámetros
+    public Product(String name, Amount wholesalerPrice, boolean available, int stock) {
+        this();  // Llama al constructor sin parámetros para inicializar id y available
+        this.name = name;
+        this.wholesalerPrice = wholesalerPrice;
+        this.publicPrice = new Amount(wholesalerPrice.getValue() * 2);
+        this.stock = stock;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    // Getters y Setters para los atributos principales
+    public int getId() {
+        return id;
+    }
 
-	
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public Amount getPublicPrice() {
-		return publicPrice;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setPublicPrice(Amount publicPrice) {
-		this.publicPrice = publicPrice;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Amount getWholesalerPrice() {
-		return wholesalerPrice;
-	}
+    public Amount getPublicPrice() {
+        return publicPrice;
+    }
 
-	public void setWholesalerPrice(Amount wholesalerPrice) {
-		this.wholesalerPrice = wholesalerPrice;
-	}
+    public void setPublicPrice(Amount publicPrice) {
+        this.publicPrice = publicPrice;
+    }
 
-	public boolean isAvailable() {
-		return available;
-	}
+    public Amount getWholesalerPrice() {
+        return wholesalerPrice;
+    }
 
-	public void setAvailable(boolean available) {
-		this.available = available;
-	}
+    public void setWholesalerPrice(Amount wholesalerPrice) {
+        this.wholesalerPrice = wholesalerPrice;
+    }
 
-	public int getStock() {
-		return stock;
-	}
+    public boolean isAvailable() {
+        return available;
+    }
 
-	public void setStock(int stock) {
-		this.stock = stock;
-	}
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
 
-	public static int getTotalProducts() {
-		return totalProducts;
-	}
+    public int getStock() {
+        return stock;
+    }
 
-	public static void setTotalProducts(int totalProducts) {
-		Product.totalProducts = totalProducts;
-	}
-	
-	public void expire() {
-		this.publicPrice.setValue(this.getPublicPrice().getValue()*EXPIRATION_RATE); ;
-	}
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
 
-	@Override
-	public String toString() {
-		return "Product [name=" + name + ", publicPrice=" + publicPrice + ", wholesalerPrice=" + wholesalerPrice
-				+ ", available=" + available + ", stock=" + stock + "]";
-	}
+    public static int getTotalProducts() {
+        return totalProducts;
+    }
 
-	
-	
-	
-	
-	
+    public static void setTotalProducts(int totalProducts) {
+        Product.totalProducts = totalProducts;
+    }
 
-    
+    public void expire() {
+        this.publicPrice.setValue(this.getPublicPrice().getValue() * EXPIRATION_RATE);
+    }
 
-    
+    // Getters y Setters para los nuevos atributos badge y color
+    public String getBadge() {
+        return badge;
+    }
+
+    public void setBadge(String badge) {
+        this.badge = badge;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    // Setter para 'storage' como alias de 'stock' para ajustarse a `SaxReader.java`
+    public void setStorage(int stock) {
+        this.stock = stock;
+    }
+
+    @Override
+    public String toString() {
+        return "Product [name=" + name + ", publicPrice=" + publicPrice + ", wholesalerPrice=" + wholesalerPrice
+                + ", available=" + available + ", stock=" + stock + "]";
+    }
 }
