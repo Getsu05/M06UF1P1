@@ -1,6 +1,12 @@
 package model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+@XmlRootElement(name = "product")
 public class Product {
+
     private int id;
     private String name;
     private Amount publicPrice;
@@ -8,8 +14,7 @@ public class Product {
     private boolean available;
     private int stock;
     private static int totalProducts;
-    
-    // Atributos adicionales para badge y color
+
     private String badge;
     private String color;
 
@@ -17,7 +22,7 @@ public class Product {
 
     // Constructor sin parámetros
     public Product() {
-        this.id = ++totalProducts;  // Incrementamos el id único para cada producto
+        this.id = ++totalProducts;  // Incrementa el id único para cada producto
         this.available = true;      // Valor por defecto
     }
 
@@ -30,7 +35,8 @@ public class Product {
         this.stock = stock;
     }
 
-    // Getters y Setters para los atributos principales
+    // Anotaciones JAXB para los elementos a serializar
+    @XmlElement
     public int getId() {
         return id;
     }
@@ -39,6 +45,7 @@ public class Product {
         this.id = id;
     }
 
+    @XmlElement
     public String getName() {
         return name;
     }
@@ -47,6 +54,7 @@ public class Product {
         this.name = name;
     }
 
+    @XmlElement
     public Amount getPublicPrice() {
         return publicPrice;
     }
@@ -55,6 +63,7 @@ public class Product {
         this.publicPrice = publicPrice;
     }
 
+    @XmlElement
     public Amount getWholesalerPrice() {
         return wholesalerPrice;
     }
@@ -63,6 +72,7 @@ public class Product {
         this.wholesalerPrice = wholesalerPrice;
     }
 
+    @XmlElement
     public boolean isAvailable() {
         return available;
     }
@@ -71,6 +81,7 @@ public class Product {
         this.available = available;
     }
 
+    @XmlElement
     public int getStock() {
         return stock;
     }
@@ -79,6 +90,7 @@ public class Product {
         this.stock = stock;
     }
 
+    @XmlTransient // Excluye del XML
     public static int getTotalProducts() {
         return totalProducts;
     }
@@ -91,7 +103,7 @@ public class Product {
         this.publicPrice.setValue(this.getPublicPrice().getValue() * EXPIRATION_RATE);
     }
 
-    // Getters y Setters para los nuevos atributos badge y color
+    @XmlElement
     public String getBadge() {
         return badge;
     }
@@ -99,18 +111,15 @@ public class Product {
     public void setBadge(String badge) {
         this.badge = badge;
     }
+    
 
+    @XmlElement
     public String getColor() {
         return color;
     }
 
     public void setColor(String color) {
         this.color = color;
-    }
-
-    // Setter para 'storage' como alias de 'stock' para ajustarse a `SaxReader.java`
-    public void setStorage(int stock) {
-        this.stock = stock;
     }
 
     @Override

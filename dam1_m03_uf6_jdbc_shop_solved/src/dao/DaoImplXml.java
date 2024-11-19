@@ -52,8 +52,7 @@ public class DaoImplXml implements Dao {
 
     @Override
     public boolean writeInventory(ArrayList<Product> inventory) {
-        // Ordenar los productos por stock en orden descendente antes de escribirlos
-        inventory.sort(Comparator.comparingInt(Product::getStock).reversed());
+
 
         // Usar DomWriter para escribir el inventario en un nuevo archivo XML
         DomWriter domWriter = new DomWriter();
@@ -63,16 +62,16 @@ public class DaoImplXml implements Dao {
     // Métodos de la interfaz Dao sin implementación
     @Override
     public void connect() {
-        // Sin implementación
+        
     }
 
     @Override
     public void disconnect() {
-        // Sin implementación
+        
     }
 
     @Override
     public model.Employee getEmployee(int employeeId, String password) {
-        return null; // Sin implementación
+        return null; 
     }
 }

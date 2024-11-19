@@ -13,7 +13,7 @@ public class SaxReader extends DefaultHandler {
     private ArrayList<Product> productList;
     private Product currentProduct;
     private StringBuilder currentValue;
-	String parsedElement;
+    private String parsedElement;
 
     public SaxReader() {
         productList = new ArrayList<>();
@@ -33,21 +33,21 @@ public class SaxReader extends DefaultHandler {
                 }
                 break;
             case "wholesalerPrice":
-                // Aquí usamos un atributo 'badge' si existe (aunque en tu XML actual no hay ninguno)
+                // Aquí usamos un atributo 'badge' si existe
                 String badgeAttribute = attributes.getValue("badge");
                 if (badgeAttribute != null) {
                     this.currentProduct.setBadge(badgeAttribute);
                 }
                 break;
             case "stock":
-                // Establecemos 'color' y 'storage' si están como atributos (aunque no lo están en el XML actual)
+                // Establecemos 'color' y 'stock' si están como atributos 
                 String colorAttribute = attributes.getValue("color");
                 if (colorAttribute != null) {
                     this.currentProduct.setColor(colorAttribute);
                 }
-                String storageAttribute = attributes.getValue("storage");
-                if (storageAttribute != null) {
-                    this.currentProduct.setStorage(Integer.parseInt(storageAttribute));
+                String stockAttribute = attributes.getValue("storage"); // Cambiar a stock si es necesario
+                if (stockAttribute != null) {
+                    this.currentProduct.setStock(Integer.parseInt(stockAttribute)); // Usar setStock en lugar de setStorage
                 }
                 break;
         }
@@ -68,7 +68,7 @@ public class SaxReader extends DefaultHandler {
             currentProduct.setPublicPrice(new Amount(price * 2));  // Precio público es el doble del precio mayorista
         } else if (qName.equalsIgnoreCase("stock")) {
             int stock = Integer.parseInt(currentValue.toString().trim());
-            currentProduct.setStock(stock);
+            currentProduct.setStock(stock); // Usar setStock directamente
         } else if (qName.equalsIgnoreCase("product")) {
             productList.add(currentProduct);  // Al terminar el producto, lo añadimos a la lista
         }

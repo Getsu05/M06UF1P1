@@ -3,14 +3,38 @@
   <groupId>dam1_m03_uf6_jdbc_shop_solved</groupId>
   <artifactId>dam1_m03_uf6_jdbc_shop_solved</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+
   <dependencies>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.25</version>
-            <scope>runtime</scope>
-        </dependency>
-    </dependencies>
+    <!-- MySQL Connector Dependency -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.25</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- JAXB API Dependency -->
+    <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>2.3.1</version>
+    </dependency>
+
+    <!-- Activation API Dependency -->
+    <dependency>
+      <groupId>javax.activation</groupId>
+      <artifactId>activation</artifactId>
+      <version>1.1</version>
+    </dependency>
+
+    <!-- JAXB Runtime Dependency -->
+    <dependency>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <version>2.3.3</version>
+    </dependency>
+  </dependencies>
+
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -23,4 +47,5 @@
       </plugin>
     </plugins>
   </build>
+
 </project>
