@@ -100,7 +100,8 @@ public class ShopView extends JFrame {
         if (isExported) {
         	JOptionPane.showMessageDialog(this, "El inventario ha sido exportado correctamente.");
         } else {
-            JOptionPane.showMessageDialog(this, "Hubo un problema al exportar el inventario.");
+        	JOptionPane.showMessageDialog(this, "Hubo un problema al exportar el inventario.", "Error de Exportación", JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
