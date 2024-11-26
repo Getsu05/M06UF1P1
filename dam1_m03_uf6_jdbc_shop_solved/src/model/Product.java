@@ -2,9 +2,8 @@ package model;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
-@XmlRootElement(name = "product")
+@XmlRootElement(name = "product") 
 public class Product {
 
     private int id;
@@ -18,25 +17,22 @@ public class Product {
     private String badge;
     private String color;
 
-    public final static double EXPIRATION_RATE = 0.60;
+    public static final double EXPIRATION_RATE = 0.60;
 
-    // Constructor sin parámetros
     public Product() {
-        this.id = ++totalProducts;  // Incrementa el id único para cada producto
-        this.available = true;      // Valor por defecto
+        this.id = ++totalProducts; // Incrementa automáticamente el ID
+        this.available = true;     // Valor predeterminado
     }
 
-    // Constructor con parámetros
     public Product(String name, Amount wholesalerPrice, boolean available, int stock) {
-        this();  // Llama al constructor sin parámetros para inicializar id y available
+        this(); 
         this.name = name;
         this.wholesalerPrice = wholesalerPrice;
         this.publicPrice = new Amount(wholesalerPrice.getValue() * 2);
         this.stock = stock;
     }
 
-    // Anotaciones JAXB para los elementos a serializar
-    @XmlElement
+    @XmlElement // Incluir cuando tenga tiempo en el XML
     public int getId() {
         return id;
     }
@@ -45,7 +41,7 @@ public class Product {
         this.id = id;
     }
 
-    @XmlElement
+    @XmlElement // Incluir cuando tenga tiempo en el XML
     public String getName() {
         return name;
     }
@@ -54,7 +50,7 @@ public class Product {
         this.name = name;
     }
 
-    @XmlElement
+    @XmlElement // Incluir cuando tenga tiempo en el XML
     public Amount getPublicPrice() {
         return publicPrice;
     }
@@ -63,7 +59,7 @@ public class Product {
         this.publicPrice = publicPrice;
     }
 
-    @XmlElement
+    @XmlElement // Incluir cuando tenga tiempo en el XML
     public Amount getWholesalerPrice() {
         return wholesalerPrice;
     }
@@ -72,7 +68,7 @@ public class Product {
         this.wholesalerPrice = wholesalerPrice;
     }
 
-    @XmlElement
+    @XmlElement // Incluir cuando tenga tiempo en el XML
     public boolean isAvailable() {
         return available;
     }
@@ -81,7 +77,7 @@ public class Product {
         this.available = available;
     }
 
-    @XmlElement
+    @XmlElement // Incluir cuando tenga tiempo en el XML
     public int getStock() {
         return stock;
     }
@@ -90,7 +86,7 @@ public class Product {
         this.stock = stock;
     }
 
-    @XmlTransient // Excluye del XML
+
     public static int getTotalProducts() {
         return totalProducts;
     }
@@ -99,11 +95,7 @@ public class Product {
         Product.totalProducts = totalProducts;
     }
 
-    public void expire() {
-        this.publicPrice.setValue(this.getPublicPrice().getValue() * EXPIRATION_RATE);
-    }
-
-    @XmlElement
+    @XmlElement // Incluir cuando tenga tiempo en el XML
     public String getBadge() {
         return badge;
     }
@@ -111,15 +103,21 @@ public class Product {
     public void setBadge(String badge) {
         this.badge = badge;
     }
-    
 
-    @XmlElement
+    @XmlElement // Incluir cuando tenga tiempo en el XML
     public String getColor() {
         return color;
     }
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public void expire() {
+        if (this.publicPrice != null) {
+            double newValue = this.publicPrice.getValue() * EXPIRATION_RATE;
+            this.publicPrice.setValue(newValue);
+        }
     }
 
     @Override

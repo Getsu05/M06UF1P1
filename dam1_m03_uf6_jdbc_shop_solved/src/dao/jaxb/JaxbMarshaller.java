@@ -4,34 +4,40 @@ import model.Product;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
-public class JaxbUnMarshaller {
+public class JaxbMarshaller {
 
     public static void main(String[] args) {
         try {
-            // Ruta al archivo XML
-            File file = new File("files/inputInventory.xml");
-
-            // Crear el contexto JAXB para la clase Wrapper
+            // Leer los productos desde inputInventory.xml (Unmarshalling)
+            File inputFile = new File("files/inputInventory.xml");
             JAXBContext context = JAXBContext.newInstance(ProductListWrapper.class);
-
-            // Crear el unmarshaller
             Unmarshaller unmarshaller = context.createUnmarshaller();
+            ProductListWrapper wrapper = (ProductListWrapper) unmarshaller.unmarshal(inputFile);
 
-            // Realizar el unmarshalling
-            ProductListWrapper wrapper = (ProductListWrapper) unmarshaller.unmarshal(file);
-
-            // Convertir wholesalerPrice a Amount después del unmarshalling
+            // Obtener la lista de productos del wrapper
             List<Product> products = wrapper.getProducts();
-            for (Product product : products) {
-                product.setWholesalerPrice(product.getWholesalerPrice()); 
-                System.out.println(product); 
-            }
+
+            // Generar el nombre del archivo de salida basado en la fecha actual
+            String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            String outputFileName = "inventory_" + date + ".xml";
+            File outputFile = new File(outputFileName);
+
+            // Escribir los productos en el nuevo archivo XML (Marshalling)
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.marshal(wrapper, outputFile);
+
+            System.out.println("El archivo XML ha sido generado: " + outputFileName);
+
         } catch (JAXBException e) {
             e.printStackTrace();
         }

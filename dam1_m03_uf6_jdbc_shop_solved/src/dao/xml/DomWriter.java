@@ -14,7 +14,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import java.io.File;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -34,14 +33,22 @@ public class DomWriter {
             for (Product product : products) {
                 Element productElement = document.createElement("product");
 
+                // Validar y añadir el nombre del producto
                 Element name = document.createElement("name");
-                name.appendChild(document.createTextNode(product.getName()));
+                name.appendChild(document.createTextNode(product.getName() != null ? product.getName() : "Desconocido"));
                 productElement.appendChild(name);
 
+                // Validar y añadir el precio del mayorista
                 Element wholesalerPrice = document.createElement("wholesalerPrice");
-                wholesalerPrice.appendChild(document.createTextNode(String.valueOf(product.getWholesalerPrice().getValue())));
+                if (product.getWholesalerPrice() != null) {
+                    wholesalerPrice.appendChild(document.createTextNode(String.valueOf(product.getWholesalerPrice().getValue())));
+                } else {
+                    wholesalerPrice.appendChild(document.createTextNode("0.0")); // Valor predeterminado
+                    System.out.println("Advertencia: El precio del mayorista es nulo para el producto: " + product.getName());
+                }
                 productElement.appendChild(wholesalerPrice);
 
+                // Añadir el stock del producto
                 Element stock = document.createElement("stock");
                 stock.appendChild(document.createTextNode(String.valueOf(product.getStock())));
                 productElement.appendChild(stock);
