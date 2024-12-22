@@ -1,12 +1,11 @@
 package dao;
 
 import java.util.ArrayList;
-
 import model.Employee;
 import model.Product;
 
 public interface Dao {
-    
+
     // Método para establecer conexión
     public void connect();
 
@@ -21,4 +20,13 @@ public interface Dao {
 
     // Escribir o guardar el inventario, recibe un ArrayList de productos y devuelve true o false según si fue procesado correctamente
     public boolean writeInventory(ArrayList<Product> inventory);
+
+    // Agregar un producto al inventario. Recibe un objeto Product y devuelve true o false según si fue procesado correctamente
+    public boolean addProduct(Product product);
+
+    // Actualizar un producto existente en el inventario. Recibe un objeto Product y devuelve true o false según si fue procesado correctamente
+    public boolean updateProduct(Product product);
+
+    // Eliminar un producto del inventario. Recibe el ID del producto y devuelve true o false según si fue procesado correctamente
+    public boolean deleteProduct(int productId);
 }

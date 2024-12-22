@@ -4,21 +4,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import java.util.ArrayList;
-
-import model.Amount;
 import model.Product;
+import model.Amount;
 import utils.Constants;
-import dao.DaoImplFile;
+import dao.DaoImplJDBC;  
 import main.Shop;
 
 public class ShopView extends JFrame {
-    private DaoImplFile dao;
+    private DaoImplJDBC dao; 
     private Shop shop;  // Instancia de Shop para acceder a la caja
 
     // Constructor
     public ShopView() {
-        this.dao = new DaoImplFile();
+        this.dao = new DaoImplJDBC();  // Inicializa DaoImplJDBC
         this.shop = new Shop();  // Inicializa la tienda
 
         // Configuración de la ventana
@@ -101,7 +99,6 @@ public class ShopView extends JFrame {
         	JOptionPane.showMessageDialog(this, "El inventario ha sido exportado correctamente.");
         } else {
         	JOptionPane.showMessageDialog(this, "Hubo un problema al exportar el inventario.", "Error de Exportación", JOptionPane.ERROR_MESSAGE);
-
         }
     }
 

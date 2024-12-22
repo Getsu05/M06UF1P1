@@ -4,10 +4,10 @@ import main.Logable;
 import dao.*;
 
 public class Employee extends Person implements Logable{
-	//private int employeeId;
-	//private String password;
+	private int employeeId;
+	private String password;
 	// connection using JDBC SQL
-	//private Dao dao = new DaoImplJDBC();
+	private Dao dao = new DaoImplJDBC();
 	
 	public static int USER = 123;
 	public static String PASSWORD = "test";
@@ -26,13 +26,13 @@ public class Employee extends Person implements Logable{
 		super();
 	}
 	
-	//public Dao getDao() {
-	//	return dao;
-	//}
+	public Dao getDao() {
+		return dao;
+	}
 
-	//public void setDao(Dao dao) {
-	//	this.dao = dao;
-	//}
+	public void setDao(Dao dao) {
+		this.dao = dao;
+	}
 
 	public static int getUSER() {
 		return USER;
@@ -58,21 +58,21 @@ public class Employee extends Person implements Logable{
 	 */
 	@Override
 	public boolean login(int user, String password) {
-//		if (USER == user && PASSWORD.equals(password)) {
-//			return true;
-//		} 
+		if (USER == user && PASSWORD.equals(password)) {
+			return true;
+		} 
 		boolean success = false;
 		
 		// connect to data
-		//dao.connect();
+		dao.connect();
 		
 		// get employee data
-		//if(dao.getEmployee(user, password) != null) {
+		if(dao.getEmployee(user, password) != null) {
 			success =  true;
-		//}
+		}
 		
 		// disconnect data
-		//dao.disconnect();
+		dao.disconnect();
 		return success;
 	}
 

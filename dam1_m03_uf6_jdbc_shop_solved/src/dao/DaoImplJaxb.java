@@ -80,4 +80,22 @@ public class DaoImplJaxb implements Dao {
             return null; // Devolver null si las credenciales son incorrectas
         }
     }
+
+	@Override
+	public boolean addProduct(Product product) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateProduct(Product product) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteProduct(int productId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
