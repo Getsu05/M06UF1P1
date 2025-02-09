@@ -5,6 +5,7 @@ import model.Sale;
 import model.Amount;
 import model.Client;
 import model.Employee;
+import dao.DaoImplHibernate;
 import dao.DaoImplJDBC; 
 
 import java.time.LocalDate;
@@ -18,12 +19,12 @@ public class Shop {
     private ArrayList<Sale> sales;
     private int numberSales;
     
-    private DaoImplJDBC dao = new DaoImplJDBC();
+    private DaoImplHibernate dao = new DaoImplHibernate();
 
     final static double TAX_RATE = 1.04;
 
     public Shop() {
-        this.dao = new DaoImplJDBC(); 
+        this.dao = new DaoImplHibernate(); 
         inventory = new ArrayList<Product>();
         sales = new ArrayList<Sale>();
         loadInventory();  
@@ -275,9 +276,10 @@ public class Shop {
         String nameClient = sc.nextLine();
         Client client = new Client(nameClient);
 
-        ArrayList<Product> shoppingCart = new ArrayList<Product>();
+        ArrayList<Product> shoppingCart = new ArrayList<>();
         Amount totalAmount = new Amount(0.0);
         String name = "";
+
         while (!name.equals("0")) {
             System.out.println("Introduce el nombre del producto, escribir 0 para terminar:");
             name = sc.nextLine();
@@ -285,24 +287,21 @@ public class Shop {
             if (name.equals("0")) {
                 break;
             }
-            Product product = findProduct(name);
-            boolean productAvailable = false;
 
-            if (product != null && product.isAvailable()) {
-                productAvailable = true;
+            Product product = findProduct(name);
+            if (product != null && product.isAvailable() && product.getStock() > 0) {
                 totalAmount.setValue(totalAmount.getValue() + product.getPublicPrice().getValue());
                 product.setStock(product.getStock() - 1);
-                dao.updateProduct(product);  // Actualizar producto en la base de datos
+                dao.updateProduct(product);
                 shoppingCart.add(product);
+
                 if (product.getStock() == 0) {
                     product.setAvailable(false);
-                    dao.updateProduct(product);  // Actualizar disponibilidad
+                    dao.updateProduct(product);
                 }
-                System.out.println("Producto añadido con éxito");
-            }
-
-            if (!productAvailable) {
-                System.out.println("Producto no encontrado o sin stock");
+                System.out.println("Producto añadido con éxito.");
+            } else {
+                System.out.println("Producto no encontrado o sin stock.");
             }
         }
 
@@ -314,10 +313,11 @@ public class Shop {
         }
 
         Sale sale = new Sale(client, shoppingCart, totalAmount);
-        dao.addSale(sale);  // Registrar la venta en la base de datos
+        dao.addSale(sale);
         sales.add(sale);
         numberSales++;
     }
+
 
     private void showSales() {
         for (Sale sale : sales) {

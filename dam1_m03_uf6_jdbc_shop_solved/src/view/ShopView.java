@@ -7,16 +7,17 @@ import javax.swing.*;
 import model.Product;
 import model.Amount;
 import utils.Constants;
+import dao.DaoImplHibernate;
 import dao.DaoImplJDBC;  
 import main.Shop;
 
 public class ShopView extends JFrame {
-    private DaoImplJDBC dao; 
+    private DaoImplHibernate dao; 
     private Shop shop;  // Instancia de Shop para acceder a la caja
 
     // Constructor
     public ShopView() {
-        this.dao = new DaoImplJDBC();  // Inicializa DaoImplJDBC
+        this.dao = new DaoImplHibernate();  // Inicializa DaoImplHibernate
         this.shop = new Shop();  // Inicializa la tienda
 
         // Configuración de la ventana

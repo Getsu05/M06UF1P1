@@ -1,53 +1,68 @@
 package model;
 
+import javax.persistence.*; 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "product") 
+@XmlRootElement(name = "product")
+@Entity 
+@Table(name = "inventory")
 public class Product {
 
+    @Id
     private int id;
+
+    @Column(nullable = false) 
     private String name;
+
+    @Transient 
     private Amount publicPrice;
+
+    @Embedded
     private Amount wholesalerPrice;
+
+    @Column(nullable = false) 
     private boolean available;
+
+    @Column(nullable = false)
     private int stock;
+
+    @Transient 
     private static int totalProducts;
 
     private String badge;
     private String color;
 
+    @Transient 
     public static final double EXPIRATION_RATE = 0.60;
 
+    // Constructores
     public Product() {
-        this.id = ++totalProducts; // Incrementa automáticamente el ID
-        this.available = true;     // Valor predeterminado
+        this.id = ++totalProducts;
+        this.available = true;
     }
-    
-    
 
     public Product(int id, String name, Amount wholesalerPrice, boolean available, int stock) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.wholesalerPrice = wholesalerPrice;
-		this.available = available;
-		this.stock = stock;
-		this.publicPrice = new Amount(wholesalerPrice.getValue() * 2);
-		++totalProducts;
-	}
+        super();
+        this.id = id;
+        this.name = name;
+        this.wholesalerPrice = wholesalerPrice;
+        this.available = available;
+        this.stock = stock;
+        this.publicPrice = new Amount(wholesalerPrice.getValue() * 2);
+        ++totalProducts;
+    }
 
-
-
-	public Product(String name, Amount wholesalerPrice, boolean available, int stock) {
-        this(); 
+    public Product(String name, Amount wholesalerPrice, boolean available, int stock) {
+        this();
         this.name = name;
         this.wholesalerPrice = wholesalerPrice;
         this.publicPrice = new Amount(wholesalerPrice.getValue() * 2);
         this.stock = stock;
     }
 
-    @XmlElement // Incluir cuando tenga tiempo en el XML
+    // Getters y Setters con anotaciones JPA
+    @XmlElement
     public int getId() {
         return id;
     }
@@ -56,7 +71,7 @@ public class Product {
         this.id = id;
     }
 
-    @XmlElement // Incluir cuando tenga tiempo en el XML
+    @XmlElement
     public String getName() {
         return name;
     }
@@ -65,7 +80,7 @@ public class Product {
         this.name = name;
     }
 
-    @XmlElement // Incluir cuando tenga tiempo en el XML
+    @XmlElement
     public Amount getPublicPrice() {
         return publicPrice;
     }
@@ -74,7 +89,7 @@ public class Product {
         this.publicPrice = publicPrice;
     }
 
-    @XmlElement // Incluir cuando tenga tiempo en el XML
+    @XmlElement
     public Amount getWholesalerPrice() {
         return wholesalerPrice;
     }
@@ -83,7 +98,7 @@ public class Product {
         this.wholesalerPrice = wholesalerPrice;
     }
 
-    @XmlElement // Incluir cuando tenga tiempo en el XML
+    @XmlElement
     public boolean isAvailable() {
         return available;
     }
@@ -92,7 +107,7 @@ public class Product {
         this.available = available;
     }
 
-    @XmlElement // Incluir cuando tenga tiempo en el XML
+    @XmlElement
     public int getStock() {
         return stock;
     }
@@ -100,7 +115,6 @@ public class Product {
     public void setStock(int stock) {
         this.stock = stock;
     }
-
 
     public static int getTotalProducts() {
         return totalProducts;
@@ -110,7 +124,7 @@ public class Product {
         Product.totalProducts = totalProducts;
     }
 
-    @XmlElement // Incluir cuando tenga tiempo en el XML
+    @XmlElement
     public String getBadge() {
         return badge;
     }
@@ -119,7 +133,7 @@ public class Product {
         this.badge = badge;
     }
 
-    @XmlElement // Incluir cuando tenga tiempo en el XML
+    @XmlElement
     public String getColor() {
         return color;
     }

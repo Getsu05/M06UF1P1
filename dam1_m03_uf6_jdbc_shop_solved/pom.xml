@@ -9,8 +9,15 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.25</version>
+      <version>8.0.22</version>
       <scope>runtime</scope>
+    </dependency>
+
+    <!-- Hibernate Core Dependency -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>5.4.10.Final</version>
     </dependency>
 
     <!-- JAXB API Dependency -->
